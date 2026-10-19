@@ -1,0 +1,16 @@
+{
+  "id": "giswlh/climateweaver-from-forcing-to-daily-weather",
+  "title": "ClimateWeaver From Forcing to Daily Weather",
+  "code_file": "climateweaver-from-forcing-to-daily-weather.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "climx-main-track"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "giswlh/grainlens-texture-to-grain-size-curves",
+  "title": "GrainLens Texture to Grain Size Curves",
+  "code_file": "grainlens-texture-to-grain-size-curves.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "soil-grain-size-from-photos"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": [],
+  "id_no": 139626341
+}

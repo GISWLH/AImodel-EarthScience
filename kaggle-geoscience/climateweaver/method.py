@@ -1,57 +1,6 @@
-"""Small, explicit training cores for a three-task research notebook.
-
-These educational kernels do not reproduce the complete best-score pipelines.
-Only real historical/labelled training data are accepted. No automatic submissions.
-"""
 from pathlib import Path
 import numpy as np
 import pandas as pd
-
-CARBON_AGES=[1,10,20,30,50,70,100,150,200,250,300,350,400,450,500]
-CARBON_SCALE=np.array([10.90645,3.39567],dtype=np.float32)
-
-def carbon_forcing_features(x):
-    """Actual (site,40years,12months,features) -> reference + seasonal summaries."""
-    assert x.ndim==4 and x.shape[1:3]==(40,12) and np.isfinite(x).all()
-    annual=x.mean(axis=2,dtype=np.float32);centered_year=np.arange(40,dtype=np.float32)-19.5
-    early=annual[:,:5].mean(1);late=annual[:,-5:].mean(1)
-    reference=np.concatenate([annual.mean(1),annual.std(1),(annual*centered_year[None,:,None]).sum(1)/(centered_year@centered_year),late,*[annual[:,i:i+10].mean(1) for i in range(0,40,10)],np.clip((late-early)/(np.abs(early)+1e-6),-10,10)],axis=1)
-    seasonal=x.mean(1)
-    return reference.astype(np.float32),np.concatenate([seasonal.std(1),seasonal.min(1),seasonal.max(1),late-early],axis=1).astype(np.float32)
-
-def carbon_site_split(site_ids,seed=42,validation_fraction=.2):
-    ids=np.asarray(site_ids);assert len(np.unique(ids))==len(ids) and len(ids)>=10
-    rng=np.random.default_rng(seed);order=rng.permutation(ids);n=max(2,int(len(ids)*validation_fraction))
-    train,valid=np.sort(order[n:]),np.sort(order[:n]);assert not np.intersect1d(train,valid).size
-    return train,valid
-
-def carbon_training_core(data_root,max_sites=512,seed=42,rounds=200):
-    """Fixed LightGBM final-year baseline; all15ages of a site have one split.
-
-    For bounded educational execution use the first max_sites training rows.
-    This subset is not representative global validation and must not be used as
-    evidence of an improved competitive model. No test inputs are opened.
-    """
-    from lightgbm import LGBMRegressor
-    root=Path(data_root)/'data_global';x=np.load(root/'glob_X_fea.npy',mmap_mode='r')
-    n=min(max_sites,len(x));assert n>=10
-    reference,seasonal=carbon_forcing_features(np.asarray(x[:n]))
-    initial=[];target=[]
-    for age in CARBON_AGES:
-        y=np.load(root/f'glob_Y{age:03d}.npy',mmap_mode='r');assert y.shape[1]==41
-        initial.append(np.asarray(y[:n,0,-1,:],dtype=np.float32));target.append(np.asarray(y[:n,40,-1,:2],dtype=np.float32))
-    initial=np.stack(initial,1);target=np.stack(target,1);assert initial.shape==(n,15,7)
-    ages=np.asarray(CARBON_AGES,dtype=np.float32)[None,:,None]
-    rows=np.concatenate([np.repeat(reference,15,axis=0),initial.reshape(-1,7),(initial/ages).reshape(-1,7),np.tile(CARBON_AGES,n)[:,None]],axis=1).astype(np.float32)
-    train,valid=carbon_site_split(np.arange(n),seed)
-    train_rows=np.concatenate([np.arange(i*15,(i+1)*15) for i in train]);valid_rows=np.concatenate([np.arange(i*15,(i+1)*15) for i in valid])
-    truth=target.reshape(-1,2)/CARBON_SCALE;prediction=np.empty((len(valid_rows),2))
-    for k in range(2):
-        model=LGBMRegressor(n_estimators=rounds,num_leaves=31,learning_rate=.05,min_child_samples=30,reg_alpha=.5,reg_lambda=1.,random_state=seed,n_jobs=2,verbosity=-1)
-        model.fit(rows[train_rows],truth[train_rows,k]);prediction[:,k]=np.maximum(model.predict(rows[valid_rows]),0)
-    assert np.isfinite(prediction).all()
-    return {'kind':'bounded_real_training_core_execution','representative_validation':False,'official_score':False,'test_inputs_read':False,'training_sites':len(train),'held_sites':len(valid),'all_ages_grouped':True,'seed':seed,'rounds':rounds,'target_year':40,'output_order':['height','agb'],'official_unit_divisors':CARBON_SCALE.tolist(),'normalized_held_MSE':float(np.mean((prediction-truth[valid_rows])**2))}
-
 CLIMX_VARIABLES=['tas','tasmax','tasmin','pr','huss','psl','sfcWind']
 CLIMX_PROBS=np.array([.01,.02,.035,.05,.075,.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6,.65,.7,.75,.8,.85,.9,.925,.95,.965,.98,.99])
 
@@ -99,7 +48,7 @@ def climx_map_weather(template,source_knots,target_knots):
             output[d,c]=np.interp(p,CLIMX_PROBS,target_knots[d,:,c])
     return output
 
-def climx_historical_core(data_root,backend='numpy'):
+def climx_historical_core(data_root,backend='numpy',return_fields=False):
     """Real4year/4cell mechanics check; year4held from fitting. No rnNSE claim."""
     import xarray as xr
     files=list(Path(data_root).rglob('*hist_train_1850_1931.nc'))
@@ -128,4 +77,7 @@ def climx_historical_core(data_root,backend='numpy'):
     for v,p in generated.items():
         assert np.isfinite(p).all()
         diagnostics.append({'variable':v,'historical_hold_year':1853,'daily_MAE_in_variable_units':float(np.mean(abs(p-raw[v][3]))),'minimum_generated':float(p.min()),'maximum_generated':float(p.max())})
-    return {'kind':'limited_real_historical_mechanics_check','official_rnNSE':None,'representative_validation':False,'test_targets_read':False,'train_years':[1850,1851,1852],'held_year':1853,'cells':4,'backend':backend,'all7daily_fields_generated':True,'diagnostics':diagnostics}
+    report={'kind':'limited_real_historical_mechanics_check','official_rnNSE':None,'representative_validation':False,'test_targets_read':False,'train_years':[1850,1851,1852],'held_year':1853,'cells':4,'backend':backend,'all7daily_fields_generated':True,'diagnostics':diagnostics}
+
+    if return_fields:return report,generated,{v:a[3] for v,a in raw.items()}
+    return report

@@ -1,0 +1,21 @@
+[
+  {
+    "key": "grainlens",
+    "title": "GrainLens Texture to Grain Size Curves",
+    "slug": "grainlens-texture-to-grain-size-curves",
+    "competition": "soil-grain-size-from-photos",
+    "reuse_kernel_id": 139626341
+  },
+  {
+    "key": "forestcast",
+    "title": "ForestCast Forty Year Climate Fingerprints",
+    "slug": "forestcast-forty-year-climate-fingerprints",
+    "competition": "ieee-bigdata-cup-2026-ai-emulation-challenge"
+  },
+  {
+    "key": "climateweaver",
+    "title": "ClimateWeaver From Forcing to Daily Weather",
+    "slug": "climateweaver-from-forcing-to-daily-weather",
+    "competition": "climx-main-track"
+  }
+]

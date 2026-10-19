@@ -1,0 +1,16 @@
+{
+  "id": "giswlh/forestcast-forty-year-climate-fingerprints",
+  "title": "ForestCast Forty Year Climate Fingerprints",
+  "code_file": "forestcast-forty-year-climate-fingerprints.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "ieee-bigdata-cup-2026-ai-emulation-challenge"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

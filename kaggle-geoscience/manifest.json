@@ -1,14 +1,19 @@
 {
-  "files": {
-    "three-geoscience-tasks-results-and-code.ipynb": "ad352479588086102bd0ec0d59fee3f4b85a44f4385d4bf04641ea2db9c10c26",
-    "public_evidence.json": "d743a2d2c730c60759c81fe7690d73133e70fc01a40ab4b1f189097da8bb1358",
-    "soil_core.py": "359841406f0a81fc4c520a96e4175a81e3c654eadc51da3ba02c3af3e9f10edd",
-    "carbon_climx_core.py": "b45c0384d4d17eebdc7133d6f49ab2d6194b424b77d677e53087e40fc6ae9020",
+  "sha256": {
     "requirements.txt": "5d0718e7d11dcd781b3966c744caa3dd98a4776fd9eb5fdb9a519580107f9bff",
-    "README.md": "27bebea36a06134f528d681a3dc48eb42826029fe697ad61e7d059c78a75e2fc",
-    "kernel-metadata.json": "a576ef20f343df805514ad1915de9a71cd9ac7ce1e7de8447277c282ac9810e8"
-  },
-  "official_snapshot_utc": "2026-10-19T14:10:11.994874+00:00",
-  "public_source_only": true,
-  "raw_data_included": false
+    "README.md": "00846a7456913c36b22955a7d05550d095b9a02f9eada1e41d57d413be8668b7",
+    "methods.json": "66919a8c89b8bd380a492f83f36a89dde9d566f842ae8dc171982ae99a89e07d",
+    "forestcast/kernel-metadata.json": "d59fe3f4a5be8280b917eba442bc4ff1d7a48daeeef486e244c6760faa722098",
+    "forestcast/README.md": "9e7922656a3909e46c3639f70be1be7865b55fec233c57938c3d810231981ed5",
+    "forestcast/forestcast-forty-year-climate-fingerprints.ipynb": "0f365a21b0a016a899b3c19cc659ee17d042be341a5446fd261f5f5dfd37636f",
+    "forestcast/method.py": "b5a808f5a56fa9e1f256b7eadd38296653968b5e8473ddfd8bdfb1981b8ffc89",
+    "grainlens/grainlens-texture-to-grain-size-curves.ipynb": "7674b581ebaedf2936bb52a7dfbe8e9fc68be43b3e8ed997af781026bc463741",
+    "grainlens/kernel-metadata.json": "b389b7ef563bb4216e887eef7a575b5667c1c7162f9259e398beac240d67d307",
+    "grainlens/README.md": "48992377c4ea413d1181d493d4b29a1f95134c67ea1caee3daf1d2f8b08d2641",
+    "grainlens/method.py": "359841406f0a81fc4c520a96e4175a81e3c654eadc51da3ba02c3af3e9f10edd",
+    "climateweaver/kernel-metadata.json": "fb094131e98690befd6de0c31fe6cac113c020678934940c6f5624e5402e423b",
+    "climateweaver/climateweaver-from-forcing-to-daily-weather.ipynb": "31d589391b36dacbe086673cc057b503a98f908f235889aee6b1afe25c6efd61",
+    "climateweaver/README.md": "f8fa182ad2b82b15d298ec81be6ff4e993d0ad7f5d776dfe997fdec57807d323",
+    "climateweaver/method.py": "ae5429113f9e28b2c6cee72d31346fffad292b0fb52b7c748a6ee95c0631862f"
+  }
 }
