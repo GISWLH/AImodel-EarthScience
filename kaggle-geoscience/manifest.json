@@ -1,0 +1,14 @@
+{
+  "files": {
+    "three-geoscience-tasks-results-and-code.ipynb": "6b7a9286c249cb4b161315e9f0a2c8fcd3cc2bcf759e9dbfd2904d1ae8641428",
+    "public_evidence.json": "d743a2d2c730c60759c81fe7690d73133e70fc01a40ab4b1f189097da8bb1358",
+    "soil_core.py": "359841406f0a81fc4c520a96e4175a81e3c654eadc51da3ba02c3af3e9f10edd",
+    "carbon_climx_core.py": "b45c0384d4d17eebdc7133d6f49ab2d6194b424b77d677e53087e40fc6ae9020",
+    "requirements.txt": "5d0718e7d11dcd781b3966c744caa3dd98a4776fd9eb5fdb9a519580107f9bff",
+    "README.md": "27bebea36a06134f528d681a3dc48eb42826029fe697ad61e7d059c78a75e2fc",
+    "kernel-metadata.json": "a576ef20f343df805514ad1915de9a71cd9ac7ce1e7de8447277c282ac9810e8"
+  },
+  "official_snapshot_utc": "2026-10-19T14:10:11.994874+00:00",
+  "public_source_only": true,
+  "raw_data_included": false
+}
